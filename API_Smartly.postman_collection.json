@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "048dabfc-91e6-4fff-80bc-5f8baa5203bb",
+		"name": "API_Smartly",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24426787"
+	},
+	"item": [
+		{
+			"name": "Verify GET Users request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify 10 users\", function () {\r",
+							"    pm.expect(Object.keys(pm.response.json()).length).to.eql(10)});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api}}/users",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify GET User request by Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify if user with id8 is Nicholas Runolfsdottir V\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[7].name).to.eql(\"Nicholas Runolfsdottir V\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{api}}/users",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify POST Users request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202])\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Verify Posted Data\", function(){\r",
+							"     var jsonData = pm.response.json();\r",
+							"     pm.expect(jsonData.id).to.eql(11);\r",
+							"     pm.expect(jsonData.name).to.eql(\"Vhannette\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n    \"id\": 11,\r\n    \"name\": \"Vhannette\",\r\n    \"username\": \"Nette\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{api}}/users",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
